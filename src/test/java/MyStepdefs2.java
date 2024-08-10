@@ -1,12 +1,9 @@
 import io.cucumber.java.Before;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -19,7 +16,9 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MyStepdefs {
+import static org.junit.Assert.assertTrue;
+
+public class MyStepdefs2 {
 
     private WebDriver driver;
 
@@ -30,21 +29,6 @@ public class MyStepdefs {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
-    }
-
-    @Given("wchodzimy na stronę google")
-    public void wchodzimyNaStroneGoogle() {
-        driver.get("https://www.google.com");
-    }
-
-    @When("robimy screenshot")
-    public void robimyScreenshot() {
-        takeScreenshot();
-    }
-
-    @Then("kończymy test")
-    public void konczymyTest() {
-        driver.quit();
     }
 
     private void takeScreenshot() {
@@ -59,4 +43,28 @@ public class MyStepdefs {
         }
     }
 
+
+    @Given("wchodzimy na strone madison island")
+    public void wchodzimyNaStroneMadisonIsland() {
+        driver.get("http://demo-store.seleniumacademy.com/");
+    }
+
+    @When("uzytkownik wpisuje w pole wyszukiwania {string}")
+    public void uzytkownikWpisujeWPoleWyszukiwania(String query) {
+        WebElement searchField = driver.findElement(By.name("q"));
+        searchField.click();
+        searchField.sendKeys(query);
+    }
+
+    @And("klika przycisk szukaj")
+    public void klikaPrzyciskSzukaj() {
+        WebElement searchField = driver.findElement(By.name("q"));
+        searchField.submit();
+    }
+
+    @Then("strona wyszukiwania zawiera {string}")
+    public void stronaWyszukiwaniaZawiera(String result) {
+        assertTrue("The page title does not start with thee search string",
+                driver.getTitle().toLowerCase().contains(result));
+    }
 }
