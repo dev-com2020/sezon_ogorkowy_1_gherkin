@@ -1,5 +1,6 @@
 import io.cucumber.java.en.Given;
-import org.junit.jupiter.api.AfterEach;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -29,17 +30,19 @@ public class MyStepdefs {
         driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
     }
 
-    @AfterEach
-    public void tearDown(){
-        if (driver != null) {
-            takeScreenshot();
-            driver.quit();
-        }
-    }
-
     @Given("wchodzimy na stronę google")
     public void wchodzimyNaStroneGoogle() {
+        driver.get("https://www.google.com");
+    }
 
+    @When("robimy screenshot")
+    public void robimyScreenshot() {
+        takeScreenshot();
+    }
+
+    @Then("kończymy test")
+    public void konczymyTest() {
+        driver.quit();
     }
 
     private void takeScreenshot() {
