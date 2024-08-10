@@ -3,13 +3,9 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.FindBy;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,14 +21,6 @@ import static org.junit.Assert.assertTrue;
 public class MyStepdefs3 {
     private WebDriver driver;
 
-    @FindBy(id = "username")
-    private WebElement usernameInput;
-
-    @FindBy(id = "password")
-    private WebElement passwordInput;
-
-    @FindBy(name = "login")
-    private WebElement loginButton;
 
     @Before
     public void setUp() throws MalformedURLException {
@@ -63,6 +51,11 @@ public class MyStepdefs3 {
 
     @When("user enters {string} and {string}")
     public void userEntersAnd(String email, String password) {
+
+        WebElement usernameInput = driver.findElement(By.id("email"));
+        WebElement passwordInput = driver.findElement(By.id("pass"));
+        WebElement loginButton = driver.findElement(By.id("send2"));
+
         usernameInput.sendKeys(email);
         passwordInput.sendKeys(password);
         loginButton.click();
@@ -79,4 +72,5 @@ public class MyStepdefs3 {
     public void takesAScreenshots() {
         takeScreenshot();
     }
+
 }
