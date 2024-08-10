@@ -3,4 +3,5 @@ Feature: Wyszukiwanie produktu
     Given wchodzimy na strone madison island
     When uzytkownik wpisuje w pole wyszukiwania "Plaid Cotton Shirt"
     And klika przycisk szukaj
+    And zrobimy screenshot
     Then strona wyszukiwania zawiera "Plaid Cotton Shirt"

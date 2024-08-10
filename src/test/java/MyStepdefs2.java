@@ -3,6 +3,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.en_scouse.An;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -62,9 +63,14 @@ public class MyStepdefs2 {
         searchField.submit();
     }
 
+    @And("zrobimy screenshot")
+    public void zrobimyScreenShot(){
+        takeScreenshot();
+    }
+
     @Then("strona wyszukiwania zawiera {string}")
     public void stronaWyszukiwaniaZawiera(String result) {
-        assertTrue("The page title does not start with thee search string",
-                driver.getTitle().toLowerCase().contains(result));
+        assertTrue("Search results for:",
+                driver.getTitle().contains(result));
     }
 }
